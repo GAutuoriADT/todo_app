@@ -1,0 +1,15 @@
+<form (ngSubmit)="addNewItem()" action="post">
+  <label for="name">Nome</label>
+  <input *ngIf="!toEdit" type="text" [(ngModel)]="newItem.name" name="name"/>
+  <input *ngIf="toEdit" type="text" [(ngModel)]="toEdit!.name" name="name">
+  <label for="description">Descrizione</label>
+  <textarea *ngIf="!toEdit" name="" id="" cols="30" rows="10" [(ngModel)]="newItem.description" name="description"></textarea>
+  <textarea *ngIf="toEdit" name="" id="" cols="30" rows="10" [(ngModel)]="toEdit! .description" name="description"></textarea>
+  <div *ngIf="!toEdit" class="form-buttons">
+    <input class="btn btn-primary" type="submit" value="Aggiungi">
+  </div>
+  <div class="modification" *ngIf="toEdit">
+    <input class="nullify btn btn-danger" type="submit" value="Annulla" (click)="reverseEdit()">
+    <input class="modify btn btn-primary" type="submit" value="Modifica" (click)="confirmEdit()">
+    </div>
+</form>

@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="top-card">
+    <input type="checkbox" [(ngModel)]="todo.done" (click)="taskCompleted()"/>
+    <h1 class="title">{{todo.name}}</h1>
+    <span>Id: {{todo.id}}</span>
+  </div>
+  <p class="body">
+    {{todo.description}}
+  </p>
+  <div class="buttons">
+    <button type="submit" (click)="editElement()">Modifica</button>
+    <button type="submit" (click)="deleteElement()">Elimina</button>
+  </div>
+</div>

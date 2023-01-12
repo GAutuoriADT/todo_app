@@ -1,0 +1,32 @@
+form {
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+
+  input {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+  }
+
+  textarea {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+  }
+}
+
+.form-buttons{
+    display: flex;
+    justify-content: center;
+    
+    button{
+        width: 100%;
+    }
+}
+
+.modification{
+  display: flex;
+  justify-content: space-around;
+}

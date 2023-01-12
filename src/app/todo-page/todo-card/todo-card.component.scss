@@ -1,0 +1,32 @@
+.card {
+  padding: 10px;
+
+  p {
+    font-size: 14px;
+  }
+}
+
+.top-card {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+
+  h1 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: end;
+
+  button {
+    border: none;
+    background-color: white;
+  }
+
+  button:last-child {
+    color: red;
+  }
+}
