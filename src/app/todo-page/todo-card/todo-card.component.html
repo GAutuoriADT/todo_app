@@ -3,6 +3,7 @@
     <input type="checkbox" [(ngModel)]="todo.done" (click)="taskCompleted()"/>
     <h1 class="title">{{todo.name}}</h1>
     <span>Id: {{todo.id}}</span>
+    <span>Deadline: {{todo.deadline | date: 'dd/MM/yyyy'}}</span>
   </div>
   <p class="body">
     {{todo.description}}

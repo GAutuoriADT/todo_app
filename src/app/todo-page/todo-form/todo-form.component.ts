@@ -1,48 +1,85 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { identity } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Todo } from 'src/app/models/todo';
+import {
+  FormBuilder,
+  Validators,
+  ValidatorFn,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
-  styleUrls: ['./todo-form.component.scss']
+  styleUrls: ['./todo-form.component.scss'],
 })
 export class TodoFormComponent implements OnInit {
+  constructor(private fb: FormBuilder) {}
 
-  constructor() { }
+  @Input() toEdit!: Todo | undefined;
 
-  @Input() toEdit!: Todo | undefined
-
-  @Output() newItemEvent = new EventEmitter<Todo>()
-  @Output() newEditEvent = new EventEmitter<Todo>()
+  @Output() newItemEvent = new EventEmitter<Todo>();
+  @Output() newEditEvent = new EventEmitter<Todo>();
   @Output() newReverseEvent = new EventEmitter<Todo>();
 
-
-  newItem: Todo = {                                                                                                                                                                                                                                                                                                                                               
+  newItem: Todo = {
     id: Math.floor(Math.random() * 10000).toString(16),
-    name: "",
-    description: "",
-    done: false
+    name: '',
+    description: '',
+    deadline: new Date(),
+    done: false,
+  };
+
+  todoForm = this.fb.group({
+    name: ['', Validators.required],
+    date: ['', this.validateDate()],
+    description: ['', Validators.required],
+  });
+
+  switchValuesToEdit() {
+    this.todoForm.value.name = this.toEdit!.name;
+    this.todoForm.value.description = this.toEdit!.description;
   }
 
-  name="";
-  description="";
-
-  addNewItem(){
-    this.newItemEvent.emit(this.newItem)
-    console.log("Dati nel form", this.newItem)
+  validateDate(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      let today: Date = new Date();
+      if (new Date(control.value) <= today) {
+        return {
+          date: 'La deadline deve essere almeno il giorno successivo ad oggi',
+        };
+      } else return null;
+    };
   }
 
-  ngOnInit(): void {
+  // name="";
+  // description="";
+
+  addNewItem() {
+    this.newItem.name = this.todoForm.value.name!;
+    this.newItem.description = this.todoForm.value.description!;
+    this.newItemEvent.emit(this.newItem);
+    console.log('Dati nel form', this.newItem);
+    console.log('Reactive form values', this.todoForm.value);
   }
 
-  confirmEdit(){
-    this.newEditEvent.emit(this.toEdit)
-    console.log(this.toEdit)
+  ngOnInit(): void {}
+
+  confirmEdit() {
+    this.toEdit!.name = this.todoForm.value.name!;
+    this.toEdit!.description = this.todoForm.value.description!;
+    this.newEditEvent.emit(this.toEdit);
+    console.log(this.toEdit);
   }
 
-  reverseEdit(){
-    this.toEdit = undefined
+  reverseEdit() {
+    this.toEdit = undefined;
   }
-
 }

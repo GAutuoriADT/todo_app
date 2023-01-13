@@ -1,11 +1,7 @@
 export class Todo {
-    id: string;
+    id: string = "";
     name: string = "";
     description: string = "";
+    deadline: Date = new Date();
     done: boolean = false;
-
-    constructor(todo?: Partial<Todo>){
-        this.id = Math.floor(Math.random() * 10000).toString(16),
-        Object.assign(this, todo)
-    }
 }

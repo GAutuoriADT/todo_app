@@ -1,12 +1,23 @@
-<form (ngSubmit)="addNewItem()" action="post">
+<form [formGroup]="todoForm" action="post">
   <label for="name">Nome</label>
-  <input *ngIf="!toEdit" type="text" [(ngModel)]="newItem.name" name="name"/>
-  <input *ngIf="toEdit" type="text" [(ngModel)]="toEdit!.name" name="name">
+  <input *ngIf="!toEdit" type="text" formControlName="name" name="name"/>
+  <input *ngIf="toEdit" type="text" formControlName="name" name="name">
+  <ng-container *ngIf="todoForm.get('name')?.touched">
+    <p *ngIf="todoForm.get('name')?.hasError('required')" class="text-danger">Il campo è obbligatorio</p>
+  </ng-container>
+  <label for="date">Date</label>
+  <input type="date">
+  <ng-container *ngIf="todoForm.get('date')?.touched">
+    <p *ngIf="todoForm.get('date')?.hasError('date')" class="text-danger">La deadline deve essere almeno il giorno successivo ad oggi</p>
+  </ng-container>
   <label for="description">Descrizione</label>
-  <textarea *ngIf="!toEdit" name="" id="" cols="30" rows="10" [(ngModel)]="newItem.description" name="description"></textarea>
-  <textarea *ngIf="toEdit" name="" id="" cols="30" rows="10" [(ngModel)]="toEdit! .description" name="description"></textarea>
+  <textarea *ngIf="!toEdit" name="" id="" cols="30" rows="10" formControlName="description" name="description"></textarea>
+  <textarea *ngIf="toEdit" name="" id="" cols="30" rows="10" formControlName="description" name="description"></textarea>
+  <ng-container *ngIf="todoForm.get('description')?.touched">
+    <p *ngIf="todoForm.get('description')?.hasError('required')" class="text-danger">Il campo è obbligatorio</p>
+  </ng-container>
   <div *ngIf="!toEdit" class="form-buttons">
-    <input class="btn btn-primary" type="submit" value="Aggiungi">
+    <input [disabled]="todoForm.invalid" class="btn btn-primary" type="submit" value="Aggiungi" (click)="addNewItem()">
   </div>
   <div class="modification" *ngIf="toEdit">
     <input class="nullify btn btn-danger" type="submit" value="Annulla" (click)="reverseEdit()">

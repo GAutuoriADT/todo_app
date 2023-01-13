@@ -14,24 +14,28 @@ export class TodoPageComponent implements OnInit {
       id: Math.floor(Math.random() * 10000).toString(16),
       name: "Todo 1",
       description: "Lorem ipsum dolor sit amet",
+      deadline: new Date(),
       done: false
     },
     {
       id: Math.floor(Math.random() * 10000).toString(16),
       name: "Todo 2",
       description: "Lorem ipsum dolor sit amet",
+      deadline: new Date(),
       done: true
     },
     {
       id: Math.floor(Math.random() * 10000).toString(16),
       name: "Todo 3",
       description: "Lorem ipsum dolor sit amet",
+      deadline: new Date(),
       done: false
     },
     {
       id: Math.floor(Math.random() * 10000).toString(16),
       name: "Todo 4",
       description: "Lorem ipsum dolor sit amet",
+      deadline: new Date(),
       done: true
     },
   ]
@@ -82,7 +86,6 @@ export class TodoPageComponent implements OnInit {
   }
 
   addEditedTodo(todo :Todo){
-
     let index:number = this.todoList.findIndex(el => el.id === todo.id)
     this.todoList[index] = todo; 
   }

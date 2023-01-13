@@ -8,8 +8,6 @@
           <app-todo-card
             [todo]="todo"
             (delete)="deleteElement($event)"
-            (onDone)="markDone($event)"
-            (onUndone)="markUndone($event)"
             (modify)="modifyCard($event)"
           ></app-todo-card>
         </article>
