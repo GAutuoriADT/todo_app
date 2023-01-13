@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Todo } from 'src/app/models/todo';
+import { Todo } from '../../../core/models/todo';
 import {
   FormBuilder,
   Validators,

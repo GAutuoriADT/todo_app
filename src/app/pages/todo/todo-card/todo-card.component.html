@@ -1,6 +1,6 @@
 <div class="card">
   <div class="top-card">
-    <input type="checkbox" [(ngModel)]="todo.done" (click)="taskCompleted()"/>
+    <input type="checkbox" (click)="taskCompleted()"/>
     <h1 class="title">{{todo.name}}</h1>
     <span>Id: {{todo.id}}</span>
     <span>Deadline: {{todo.deadline | date: 'dd/MM/yyyy'}}</span>

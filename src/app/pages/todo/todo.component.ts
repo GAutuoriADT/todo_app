@@ -1,12 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Todo } from '../models/todo';
+import { Component, OnInit , Input} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Todo } from '../../core/models/todo';
 
 @Component({
-  selector: 'app-todo-page',
-  templateUrl: './todo-page.component.html',
-  styleUrls: ['./todo-page.component.scss']
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.scss']
 })
-export class TodoPageComponent implements OnInit {
+export class TodoComponent implements OnInit {
+  
+  constructor(
+    private activatedRoute: ActivatedRoute
+  ) { }
+  
+  ngOnInit(): void {
+  }
 
   todoList: Todo[] = [
     //Task di prova per test input binding
@@ -43,10 +51,6 @@ export class TodoPageComponent implements OnInit {
   doneList: Todo[] = this.todoList.filter(todo => todo.done === true)
   undoneList: Todo[] = this.todoList.filter(todo => todo.done === false)
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   
   addItem(newItem: Todo){
