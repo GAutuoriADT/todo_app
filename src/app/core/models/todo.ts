@@ -1,7 +1,9 @@
+import { formatDate } from "@angular/common";
+
 export class Todo {
     id: string = "";
-    name: string = "";
-    description: string = "";
-    deadline: Date = new Date();
+    nome: string = "";
+    descrizione: string = "";
+    deadline: string = "";
     done: boolean = false;
 }

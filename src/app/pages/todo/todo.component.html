@@ -2,20 +2,17 @@
       <section class="col">
         <div class="row">
           <div class="todo-list">
-          <article class="col-12" *ngFor="let todo of todoList" (ngModelChange)="onFilterChange()">
+          <article class="col-12" *ngFor="let todo of todoList">
             <app-todo-card
               [todo]="todo"
-              (delete)="deleteElement($event)"
-              (modify)="modifyCard($event)"
+              (delete)="deleteItem($event)"
+          
             ></app-todo-card>
           </article>
         </div>
         </div>
       </section>
       <aside class="col-3">
-        <app-todo-form 
-        (newItemEvent)="addItem($event)" [toEdit]="toDoCopy"
-        (newEditEvent)="addEditedTodo($event)">
-        </app-todo-form>
+        <app-todo-form (newItemEvent)="addItem($event)"></app-todo-form>
       </aside>
     </div>

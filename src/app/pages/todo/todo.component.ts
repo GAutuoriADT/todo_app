@@ -1,5 +1,6 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TodoService } from 'src/app/core/service/todo.service';
 import { Todo } from '../../core/models/todo';
 
 @Component({
@@ -10,88 +11,42 @@ import { Todo } from '../../core/models/todo';
 export class TodoComponent implements OnInit {
   
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private todoApi: TodoService
   ) { }
   
+  @Input() toEdit!: Todo
+  @Input() todoCopy!: Todo
+
+  todoList?: Todo[]
+
   ngOnInit(): void {
+    this.todoApi.getTodo()
+    .subscribe(response => this.todoList = response)
   }
 
-  todoList: Todo[] = [
-    //Task di prova per test input binding
-    {
-      id: Math.floor(Math.random() * 10000).toString(16),
-      name: "Todo 1",
-      description: "Lorem ipsum dolor sit amet",
-      deadline: new Date(),
-      done: false
-    },
-    {
-      id: Math.floor(Math.random() * 10000).toString(16),
-      name: "Todo 2",
-      description: "Lorem ipsum dolor sit amet",
-      deadline: new Date(),
-      done: true
-    },
-    {
-      id: Math.floor(Math.random() * 10000).toString(16),
-      name: "Todo 3",
-      description: "Lorem ipsum dolor sit amet",
-      deadline: new Date(),
-      done: false
-    },
-    {
-      id: Math.floor(Math.random() * 10000).toString(16),
-      name: "Todo 4",
-      description: "Lorem ipsum dolor sit amet",
-      deadline: new Date(),
-      done: true
-    },
-  ]
-
-  doneList: Todo[] = this.todoList.filter(todo => todo.done === true)
-  undoneList: Todo[] = this.todoList.filter(todo => todo.done === false)
-
-
-  
   addItem(newItem: Todo){
     let todo = newItem
-    this.todoList.push(todo)
-  }
-  
-  deleteElement(todoId: string){
-    this.todoList = this.todoList.filter(todo => todo.id != todoId)
-    this.doneList = this.doneList.filter(todo => todo.id != todoId)
-    this.undoneList = this.undoneList.filter(todo => todo.id != todoId)
-  }
-  
-  markDone(todo: Todo){
-    todo.done = true
-    console.log(todo.done)
-    console.log("Done list", this.doneList)
-    console.log("Undone list", this.undoneList)
-  }
-  
-  markUndone(todo: Todo){
-    todo.done = false
-    console.log(todo.done)
-    console.log("Done list", this.doneList)
-    console.log("Undone list", this.undoneList)
-  }
-  
-  onFilterChange(){  
-  }
-  
-  @Input() toEdit!: Todo
-
-  toDoCopy!:Todo
-
-  modifyCard(todo:Todo){
-    this.toDoCopy= todo;
+    console.log("New Item in todo", newItem)
+    this.todoApi.postTodo(todo)
+    .subscribe(response => this.todoApi.getTodo().subscribe(response => this.todoList = response))
   }
 
-  addEditedTodo(todo :Todo){
-    let index:number = this.todoList.findIndex(el => el.id === todo.id)
-    this.todoList[index] = todo; 
+  toModify!: Todo
+
+  modifyCard(todo: Todo){
+    this.todoCopy = this.toModify
+  }
+
+  // updateItem(todoId: string, todo: Todo){
+  //   this.todoApi.updateTodo(todo)
+  //   .subscribe
+  // }
+
+  deleteItem(todoId: string){
+    this.todoList?.filter(todo => todo.id != todoId)
+    this.todoApi.deleteTodo(todoId)
+    .subscribe(response => this.todoApi.getTodo().subscribe(response => this.todoList = response))
   }
 
 }

@@ -1,20 +1,20 @@
 <form [formGroup]="todoForm" action="post">
-  <label for="name">Nome</label>
-  <input *ngIf="!toEdit" type="text" formControlName="name" name="name"/>
-  <input *ngIf="toEdit" type="text" formControlName="name" name="name">
-  <ng-container *ngIf="todoForm.get('name')?.touched">
-    <p *ngIf="todoForm.get('name')?.hasError('required')" class="text-danger">Il campo è obbligatorio</p>
+  <label for="nome">Nome</label>
+  <input *ngIf="!toEdit" type="text" formControlName="nome" name="nome"/>
+  <input *ngIf="toEdit" type="text" formControlName="nome" name="nome">
+  <ng-container *ngIf="todoForm.get('nome')?.touched">
+    <p *ngIf="todoForm.get('nome')?.hasError('required')" class="text-danger">Il campo è obbligatorio</p>
   </ng-container>
-  <label for="date">Date</label>
-  <input type="date">
-  <ng-container *ngIf="todoForm.get('date')?.touched">
-    <p *ngIf="todoForm.get('date')?.hasError('date')" class="text-danger">La deadline deve essere almeno il giorno successivo ad oggi</p>
+  <label for="deadline">Deadline</label>
+  <input type="date" formControlName="date">
+  <ng-container *ngIf="todoForm.get('deadline')?.touched">
+    <p *ngIf="todoForm.get('deadline')?.hasError('deadline')" class="text-danger">La deadline deve essere almeno il giorno successivo ad oggi</p>
   </ng-container>
-  <label for="description">Descrizione</label>
-  <textarea *ngIf="!toEdit" name="" id="" cols="30" rows="10" formControlName="description" name="description"></textarea>
-  <textarea *ngIf="toEdit" name="" id="" cols="30" rows="10" formControlName="description" name="description"></textarea>
-  <ng-container *ngIf="todoForm.get('description')?.touched">
-    <p *ngIf="todoForm.get('description')?.hasError('required')" class="text-danger">Il campo è obbligatorio</p>
+  <label for="descrizione">Descrizione</label>
+  <textarea *ngIf="!toEdit" name="" id="" cols="30" rows="10" formControlName="descrizione" name="descrizione"></textarea>
+  <textarea *ngIf="toEdit" name="" id="" cols="30" rows="10" formControlName="descrizione" name="descrizione"></textarea>
+  <ng-container *ngIf="todoForm.get('descrizione')?.touched">
+    <p *ngIf="todoForm.get('descrizione')?.hasError('required')" class="text-danger">Il campo è obbligatorio</p>
   </ng-container>
   <div *ngIf="!toEdit" class="form-buttons">
     <input [disabled]="todoForm.invalid" class="btn btn-primary" type="submit" value="Aggiungi" (click)="addNewItem()">

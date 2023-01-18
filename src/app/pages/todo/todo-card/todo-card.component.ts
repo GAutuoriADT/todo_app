@@ -23,9 +23,12 @@ export class TodoCardComponent implements OnInit {
     this.delete.emit(this.todo.id)
   }
 
+  todoCopy!: Todo
+
   editElement(){
-    this.modify.emit(JSON.parse(JSON.stringify(this.todo)))
-    console.log("Modificato", JSON.parse(JSON.stringify(this.todo)))
+    this.todoCopy = JSON.parse(JSON.stringify(this.todo))
+    this.modify.emit(this.todoCopy)
+    console.log("Da modificare", this.todoCopy)
   }
 
   taskCompleted(){
